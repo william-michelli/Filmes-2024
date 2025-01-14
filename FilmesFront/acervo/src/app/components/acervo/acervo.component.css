@@ -1,0 +1,141 @@
+.invisivel{
+    display: none;
+}
+
+.container-flex{
+    text-align: center;
+    align-items: center;
+}
+
+.botoes-editar-excluir{
+    position: absolute; top: -42px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10%;
+    z-index: 10;
+}
+
+.botao-deletar_filme{
+    background-color: rgb(46, 46, 46);
+    margin-right: 8px;
+}
+
+.botao-deletar-icone{
+    color: white;
+}
+
+.botao-editar_filme{
+    background-color: rgb(202, 202, 202);
+}
+
+.botao-editar-icone{
+    color: rgb(0, 0, 0);
+}
+
+.streaming-disponiveis{ 
+    margin-bottom: 30px;
+}
+
+.streaming-tag{
+    display: inline;
+    background-color: rgb(228, 228, 228);
+    padding: 10px 15px 10px 15px;
+    border-radius: 30px;
+    margin-right: 5px;
+}
+
+.inputs-formulario{
+    margin-bottom: 20px;
+}
+
+.logo-streaming-netflix{
+    width: 40px;
+}
+
+.logo-streaming-prime{
+    width: 60px;
+}
+
+.logo-streaming-hbo{
+    width: 60px;
+}
+
+.logo-streaming-disney{
+    width: 60px;
+}
+
+.nota-numero{
+    display: inline;
+    padding-left: 6px;
+    font-size: large;
+    padding-right: 15px;
+}
+
+textarea {
+    resize: none;
+ }
+
+#topo{
+    margin: 20px 0px 0px 10px;
+}
+
+#botao-modal-adicionar_filme{
+    margin-right: 20px
+}
+
+#lista-filmes{
+    margin: 80px 0px 0px 0px;
+}
+
+.card{
+    border: none;
+    box-shadow: 0px 0px 8px 12px rgba(0,0,0,0.1);
+}
+
+.div-titulo-genero{
+    height: 100px;
+}
+
+.card-title{
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.card-genero{
+    text-align: center;
+    font-size: 1.1rem;
+    color: rgb(143, 143, 143);
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+
+.botao-adicionar_comentario{
+    background-color: #a5ce37;
+    color: white;
+    font-weight: 600;
+    font-size: 1.7rem;
+    padding: 0px 20px 5px 20px;
+    border: none;
+    border-radius: 7px;
+    display: block;
+    margin: 20px auto 0 auto;
+}
+
+.cada-cartao{
+    margin-bottom: 60px;
+    width: 350px;
+}
+
+.card-capa-filme{
+    height:400px;
+    object-fit:cover;
+}
+
+#container-login{
+    box-shadow: 0px 0px 8px 12px rgba(0,0,0,0.1);
+    max-width: 700px;
+    font-size: 1.5rem;
+    padding: 50px;
+}

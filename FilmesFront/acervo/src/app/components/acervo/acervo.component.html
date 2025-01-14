@@ -1,0 +1,450 @@
+<div class="container">
+    <div id="topo">
+        <div>
+            <button type="button" class="btn btn-secondary" id="botao-modal-adicionar_filme" data-bs-toggle="modal" data-bs-target="#modal-adicionar_fime">
+                Novo Filme
+            </button>
+        
+            <input type="text" (onkeyup)="atualizarLista($event)" [(ngModel)]="pesquisaFilme" id="pesquisar-filme" name="pesquisar-filme" placeholder="Procurar um filme...">
+        </div>
+    </div>
+
+    <div class="row row-cols-md-2 row-cols-sm-2 row-cols-1 justify-content-center" id="lista-filmes">
+        @for(filme of filmes; track filmes) {
+            @if (filme.nome.toLowerCase().includes(pesquisaFilme.toLowerCase())){
+            <div class="col cada-cartao">
+                <div class="card h-100">
+        
+                    <div class="botoes-editar-excluir">
+                        <button class="botao-deletar_filme btn" (click)="deletarFilme(filme)">
+                            <i class="fa-solid fa-trash botao-deletar-icone"></i>
+                        </button>
+
+                        <button class="botao-editar_filme btn" (click)="preencheEditarComDados(filme)" data-bs-toggle="modal" data-bs-target="#modal-editar_fime">
+                            <i class="fa-solid fa-pen botao-editar-icone"></i>
+                        </button>
+                    </div>
+       
+                    <img src="{{ filme.imagem }}" class="card-capa-filme" alt="...">
+
+                    <div class="card-body">
+                        <div class="div-titulo-genero">
+                            <h5 class="card-title">{{filme.nome}} ({{filme.anoLancamento}})</h5>
+                            <h6 class="card-genero">{{ filme.genero }}</h6>
+                        </div>
+
+                        <div class="streaming-disponiveis">
+                            <p>Disponível em:</p>
+                            <div class="container-flex" style="height: 100px;">
+                                @if (filme.streamings.includes("Netflix")){
+                                    <p class="streaming-tag">
+                                        <img src="https://images.ctfassets.net/y2ske730sjqp/821Wg4N9hJD8vs5FBcCGg/9eaf66123397cc61be14e40174123c40/Vector__3_.svg" class="logo-streaming-netflix">
+                                    </p>
+                                }
+        
+                                @if (filme.streamings.includes("Prime Video")){
+                                    <p class="streaming-tag">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" class="logo-streaming-prime">
+                                    </p>
+                                }
+    
+                                @if (filme.streamings.includes("HBO Max")){
+                                    <p class="streaming-tag">
+                                        <img src="https://logodownload.org/wp-content/uploads/2022/12/hbo-max-logo-0-2048x2048.png" class="logo-streaming-hbo">
+                                    </p>
+                                }
+    
+                                @if (filme.streamings.includes("Disney Plus")){
+                                    <p class="streaming-tag">
+                                        <img src="https://logodownload.org/wp-content/uploads/2020/11/disney-plus-logo-2.png" class="logo-streaming-disney">
+                                    </p>
+                                }
+                            </div>
+                    
+                        </div>
+                 
+
+                        <div class="container-flex">
+                            @if (filme.mediaNota > 0 && filme.mediaNota < 0.9){
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">0.5</p>
+                            } @else if (filme.mediaNota >= 1 && filme.mediaNota < 1.4){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">1</p>
+                            }@else if (filme.mediaNota >= 1.5  && filme.mediaNota < 1.9){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">1.5</p>
+                            }@else if (filme.mediaNota >= 2 && filme.mediaNota < 2.4){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">2</p>
+                            }@else if (filme.mediaNota >= 2.5 && filme.mediaNota < 2.9){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">2.5</p>
+                            }@else if (filme.mediaNota >= 3.0 && filme.mediaNota < 3.4){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">3</p>
+                            }@else if (filme.mediaNota >= 3.5 && filme.mediaNota < 3.9){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">3.5</p>
+                            }@else if (filme.mediaNota >= 4.0 && filme.mediaNota < 4.4){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">4</p>
+                            }@else if (filme.mediaNota >= 4.5 && filme.mediaNota < 4.9){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-regular fa-star-half-stroke"></i>
+                                <p class="nota-numero">4.5</p>
+                            }@else if (filme.mediaNota == 5){
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <p class="nota-numero">5</p>
+                            }@else{
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <i class="fa-regular fa-star"></i>
+                                <p class="nota-numero">0</p>
+                            }
+    
+                            @if (filme.comentarios.length > 0 && filme.comentarios[0] != null){
+                                <button class="botao-comentarios btn btn-secondary" (click)="preencheComentarioComDados(filme)" data-bs-toggle="modal" data-bs-target="#modal-comentarios">Comentarios ({{filme.comentarios.length}})</button>
+                            }@else{
+                                <button class="botao-comentarios btn btn-secondary" (click)="preencheComentarioComDados(filme)" data-bs-toggle="modal" data-bs-target="#modal-comentarios">Comentários (0)</button>
+                            }
+                        </div>
+                        
+                        <!-- COMENTARIOS FILME -->
+                        <div class="modal fade" id="modal-comentarios" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5">Comentários de {{titulo}}</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form #form="ngForm" (ngSubmit)="adicionarComentario()">
+                                            <div class="mb-3">
+                                                <label for="filmeId" class="form-label invisivel">Id:</label>
+                                                <input type="text" class="form-control invisivel" id="filmeId" name="filmeId" [(ngModel)]="novoComentario.filmeId">
+
+                                                <label for="nota" class="form-label">Nota (0 a 5):</label>
+                                                <input type="text" inputmode="numeric" class="form-control" id="nota" name="nota" [(ngModel)]="novoComentario.nota" required maxlength="1" min="0" max="5" pattern="^[0-5]*$" >
+                    
+                                                <label for="observacao" class="form-label">Observação:</label>
+                                                <textarea rows="6" class="form-control" id="observacao" name="observacao"[(ngModel)]="novoComentario.observacao"></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Enviar</button>
+                                        </form>
+
+                                        @if (comentarios.length > 0 && comentarios[0] != null){
+                                            <div class="container-flex">
+                                                <h6>Comentarios ({{comentarios.length}})</h6>
+                                            </div>
+  
+                                            <div>
+                                                @for(comentario of comentarios; track comentario) {
+                                                <div>
+                                                    @if (comentario.nota > 0 && comentario.nota < 0.9){
+                                                        <i class="fa-regular fa-star-half-stroke"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    } @else if (comentario.nota >= 1 && comentario.nota < 1.4){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 1.5  && comentario.nota < 1.9){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star-half-stroke"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 2 && comentario.nota < 2.4){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 2.5 && comentario.nota < 2.9){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star-half-stroke"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 3.0 && comentario.nota < 3.4){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 3.5 && comentario.nota < 3.9){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star-half-stroke"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 4.0 && comentario.nota < 4.4){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota >= 4.5 && comentario.nota < 4.9){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-regular fa-star-half-stroke"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else if (comentario.nota == 5){
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <i class="fa-solid fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }@else{
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <i class="fa-regular fa-star"></i>
+                                                        <p class="nota-numero">{{comentario.nota}}</p>
+                                                    }
+                                                    <p class="centro">{{comentario.observacao}}</p>
+                                                    <hr style="border: 1px solid black;">
+                                                </div>
+                                                }
+                                            </div>
+                                        }@else{
+                                            <div class="container-flex">
+                                                <h6>Sem comentários</h6>
+                                                <p>Seja o primeiro a comentar!</p>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            }
+        }
+    </div>
+
+
+    <!-- MODAIS  -->
+
+    <!-- NOVO FILME -->
+    <div class="modal fade" id="modal-adicionar_fime" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="">Novo Filme</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #form="ngForm" (ngSubmit)="adicionarFilme()">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control inputs-formulario" id="nome" name="nome" [(ngModel)]="novoFilme.nome" required>
+
+                            <div class="inputs-formulario">
+                                <label for="nome" class="form-label">Gênero:</label>
+                                <select class="form-select" id="genero" name="genero"  aria-label="Default select example" style="margin-bottom: 5px;" [(ngModel)]="novoFilme.genero" required>
+                                    <option selected>Escolha o genero</option>
+                                    <option value="Animação">Animação</option>
+                                    <option value="Ação e Aventura">Ação e Aventura</option>
+                                    <option value="Drama">Drama</option>
+                                    <option value="Fantasia">Fantasia</option>
+                                    <option value="Ficção">Ficção Científica</option>
+                                    <option value="Comédia">Comédia</option>
+                                    <option value="Terror">Terror</option>
+                                    <option value="Documentario">Documentario</option>
+                                </select>
+                            </div>
+              
+
+                            <label for="anoLancamento" class="form-label">Ano de Lançamento:</label>
+                            <input type="text" inputmode="numeric" class="form-control inputs-formulario" id="anoLancamento" name="anoLancamento" [(ngModel)]="novoFilme.anoLancamento" maxlength="4" min="1900" max="2099" required>
+
+                            <label for="imagem" class="form-label">Imagem:</label>
+                            <input type="text" class="form-control inputs-formulario" id="imagem" name="imagem" [(ngModel)]="novoFilme.imagem" required>
+
+                            <label for="streamings" class="form-label inputs-formulario">Streamings:</label>
+                            <!-- <input type="text" class="form-control" id="streamings" name="streamings" [(ngModel)]="novoFilme.streamings"> -->
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Netflix" id="netflix" name="netflix" [(ngModel)]="netflixCheckbox">
+                                <label class="form-check-label" for="netflix">
+                                  Netflix
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Prime Video" id="primevideo" name="primevideo" [(ngModel)]="primeCheckbox">
+                                <label class="form-check-label" for="primevideo">
+                                  Prime Video
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="HBO Max" id="hbomax" name="hbomax" [(ngModel)]="hbomaxCheckbox">
+                                <label class="form-check-label" for="hbomax">
+                                  HBO Max
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Disney Plus" id="disneyplus" name="hbomax" [(ngModel)]="disneyplusCheckbox">
+                                <label class="form-check-label" for="disneyplus">
+                                  Disney Plus
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITAR FILME -->
+    <div class="modal fade" id="modal-editar_fime" data-bs-backdrop="true" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="">Editar Filme</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form #form="ngForm" (ngSubmit)="editarFilme(editFilme.id, editFilme)">
+                        <div class="mb-3">
+                            <label for="id" class="form-label invisivel">Id:</label>
+                            <input type="text" class="form-control invisivel" id="id" name="id" [(ngModel)]="editFilme.id" readonly>
+
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control inputs-formulario" id="nome" name="nome" [(ngModel)]="editFilme.nome">
+                            
+                            <div class="inputs-formulario">
+                                <label for="nome" class="form-label">Gênero:</label>
+                                <select class="form-select" id="genero" name="genero" aria-label="Default select example" style="margin-bottom: 5px;" required [(ngModel)]="editFilme.genero">
+                                    <option>Escolha o genero</option>
+                                    <option value="Animação" [selected]="editFilme.genero == 'Animacao'">Animação</option>
+                                    <option value="Ação e Aventura" [selected]="editFilme.genero == 'Ação e Aventura'">Ação e Aventura</option>
+                                    <option value="Drama" [selected]="editFilme.genero == 'Drama'">Drama</option>
+                                    <option value="Fantasia" [selected]="editFilme.genero == 'Fantasia'">Fantasia</option>
+                                    <option value="Ficção" [selected]="editFilme.genero == 'Ficção'">Ficção Científica</option>
+                                    <option value="Comédia" [selected]="editFilme.genero == 'Comédia'">Comédia</option>
+                                    <option value="Terror" [selected]="editFilme.genero == 'Terror'">Terror</option>
+                                    <option value="Documentario" [selected]="editFilme.genero == 'Documentario'">Documentario</option>
+                                </select>
+                            </div>
+              
+                            <label for="anoLancamento" class="form-label">Ano de Lançamento:</label>
+                            <input type="number" class="form-control inputs-formulario" id="anoLancamento" name="anoLancamento" [(ngModel)]="editFilme.anoLancamento">
+
+                            <label for="imagem" class="form-label">Imagem:</label>
+                            <input type="text" class="form-control inputs-formulario" id="imagem" name="imagem"[(ngModel)]="editFilme.imagem">
+
+                            <label for="streamings" class="form-label">Streamings:</label>
+                            <!-- <input type="text" class="form-control" id="streamings" name="streamings"[(ngModel)]="editFilme.streamings"> -->
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Netflix" id="netflix" name="netflix" [(ngModel)]="netflixCheckbox">
+                                <label class="form-check-label" for="netflix">
+                                  Netflix
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Prime Video" id="primevideo" name="primevideo" [(ngModel)]="primeCheckbox">
+                                <label class="form-check-label" for="primevideo">
+                                  Prime Video
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="HBO Max" id="hbomax" name="hbomax" [(ngModel)]="hbomaxCheckbox">
+                                <label class="form-check-label" for="hbomax">
+                                  HBO Max
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Disney Plus" id="disneyplus" name="disneyplus" [(ngModel)]="disneyplusCheckbox">
+                                <label class="form-check-label" for="disneyplus">
+                                  Disney Plus
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
