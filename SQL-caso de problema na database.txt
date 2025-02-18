@@ -1,0 +1,56 @@
+CREATE DATABASE Acervo;
+GO
+
+USE Acervo;
+GO
+
+CREATE SCHEMA AcervoSchema;
+GO
+
+-- FILME ###########################
+
+CREATE TABLE AcervoSchema.Filme
+( 
+    Id INT IDENTITY(1,1),
+    Nome NVARCHAR(50),
+    Genero NVARCHAR(50),
+    AnoLancamento INT,
+    Imagem varchar(255),
+    Streamings varchar(255)
+    CONSTRAINT PK_Filme PRIMARY KEY(Id)
+)
+GO
+
+INSERT INTO AcervoSchema.Filme
+  ( Nome, Genero, AnoLancamento, Imagem, Streamings )
+VALUES
+    ('Prenda-me Se For Capaz','Drama', 2002,'https://br.web.img3.acsta.net/pictures/210/100/21010048_20130603234956231.jpg','Netflix'),
+    ('Chamas da Vingança','Ação', 2004,'https://br.web.img3.acsta.net/medias/nmedia/18/96/28/47/20457373.jpg','Netflix;Prime Video'),
+    ('Senhor dos Anéis: A Sociedade do Anel', 'Fantasia', 2001, 'https://br.web.img3.acsta.net/medias/nmedia/18/92/91/32/20224832.jpg', 'Prime Video'), 
+    ('Harry Potter e a Pedra Filosofal', 'Fantasia', 2001, 'https://ingresso-a.akamaihd.net/img/cinema/cartaz/7766-cartaz.jpg', 'Netflix');
+
+-- COMENTARIOS ###########################
+
+DROP TABLE AcervoSchema.Comentario
+
+CREATE TABLE AcervoSchema.Comentario
+( 
+    Id INT IDENTITY(1,1),
+    FilmeId INT,
+    Nota INT,
+    Observacao VARCHAR(MAX)
+    CONSTRAINT PK_Filme_Comentarios PRIMARY KEY(Id)
+    CONSTRAINT FK_Filme_Comentarios_FilmeId FOREIGN KEY(FilmeId)
+    REFERENCES AcervoSchema.Filme(Id)
+    ON DELETE CASCADE
+)
+GO
+
+INSERT INTO AcervoSchema.Comentario
+  ( FilmeId, Nota, Observacao )
+VALUES
+    (1068,4,'Gostei muito do filme'),
+    (1068,1,'Péssima atuação'),
+    (1069,5,'Amei se tornou meu favorito'),
+    (1069,2,'Prefiro o outro filme dele O Protetor'),
+    (1069,5,'Excepcional filme. Direção magistral, tudo incrível: roteiro, atores etc. O filme deixa uma sensação que comento aqui e se estende a todos os filmes de Tony Scott: vejamos essas obras-primas com um amor diferente, porque Tony Scott se foi em 2012. Nunca mais teremos esses filmes incríveis dele. Guardemos, são relíquias. ');
