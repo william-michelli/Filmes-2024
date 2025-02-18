@@ -1,3 +1,3 @@
-Projeto básico para estudo de APIs e do Framework Angular.
+Projeto básico para estudo de APIs em .NET e do Framework Angular.
 
 
